@@ -1,6 +1,11 @@
+[Sscofpmf]
 = Count Overflow and Mode-Based Filtering (Sscofpmf) Arch Extension
+
 Greg Favor
-v0.5.1, 2021-8-30
+
+v0.5.1
+
+2021-8-30
 
 == Introduction
 
@@ -62,17 +67,15 @@ This "count overflow interrupt request" signal is treated as a standard local in
 
 Generation of a "count overflow interrupt request" by an hpmcounter sets the LCOFIP bit in the mip/sip registers and sets the associated OF bit. The mideleg register controls the delegation of this interrupt to S-mode versus M-mode. The LCOFIP bit is cleared by software before servicing the count overflow interrupt resulting from one or more count overflows.
 
----------------------------- Non-Normative Text ----------------------------
-
+.Non-Normative Text
+****
 There are not separate overflow status and overflow interrupt enable bits. In practice, enabling overflow interrupt generation (by clearing the OF bit) is done in conjunction with initializing the counter to a starting value. Once a counter has overflowed, it and the OF bit must be reinitialized before another overflow interrupt can be generated.
+****
 
-----------------------------------------------------------------------------------------
-
----------------------------- Non-Normative Text ----------------------------
-
+.Non-Normative Text
+****
 Software can distinguish newly overflowed counters (yet to be serviced by an overflow interrupt handler) from overflowed counters that have already been serviced or that are configured to not generate an interrupt on overflow, by maintaining a bit mask reflecting which counters are active and due to eventually overflow.
-
-----------------------------------------------------------------------------------------
+****
 
 === Machine Interrupt Registers (mip and mie)
 
