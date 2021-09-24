@@ -80,7 +80,6 @@ There are not separate overflow status and overflow interrupt enable bits. In pr
 [NOTE]
 .Non-normative
 ****
-****
 Software can distinguish newly overflowed counters (yet to be serviced by an overflow interrupt handler) from overflowed counters that have already been serviced or that are configured to not generate an interrupt on overflow, by maintaining a bit mask reflecting which counters are active and due to eventually overflow.
 ****
 
