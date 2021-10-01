@@ -1,16 +1,4 @@
 [Sscofpmf]
-= Count Overflow and Mode-Based Filtering (Sscofpmf) Arch Extension
-:toc:
-:toc-placement!:
-
-Greg Favor
-
-v0.5.1
-
-2021-8-30
-
-toc::[]
-
 == Introduction
 
 The current Privileged specification defines mhpmevent CSRs to select and
