@@ -10,31 +10,28 @@ well as have been the subject of past proposals). This enables there to be
 standard upstream software support that eliminates the need for implementations
 to provide their own custom software support.
 
-This proposal serves to accomplish exactly this within the existing mhpmevent
+This extension serves to accomplish exactly this within the existing mhpmevent
 CSRs (and correspondingly avoids the unnecessary creation of whole new sets of
 CSRs - past just one new CSR).
 
-Below is the draft spec of the proposal - which sticks to addressing two basic
-well-understood needs that have been requested by various people. This is
-written as the actual exact changes to be made to existing paragraphs of Priv
-spec text (or additional paragraphs within the existing text).
+This extension sticks to addressing two basic well-understood needs that have
+been requested by various people. To make it easy to understand the deltas from
+the current Priv 1.11/1.12 specs, this is written as the actual exact changes
+to be made to existing paragraphs of Priv spec text (or additional paragraphs
+within the existing text).
 
-The proposed extension name is "Sscofpmf" ('Ss' for Privileged arch and
-Supervisor-level extensions, and 'cofpmf' for Count OverFlow and Privilege Mode
-Filtering).
+The extension name is "Sscofpmf" ('Ss' for Privileged arch and Supervisor-level
+extensions, and 'cofpmf' for Count OverFlow and Privilege Mode Filtering).
 
 Note that the new count overflow interrupt will be treated as a standard local
 interrupt that is assigned to bit 13 in the mip/mie/sip/sie registers.
 
-At this point most likely only feedback from the Opcode and Consistency Review
-and then from the 45-day public review should be sources of any changes (of
-which hopefully there won't be any).
-
-== Machine Extension Additions
+== Machine Level Additions
 
 === Hardware Performance Monitor
 
-{empty}[ This extension expands the hardware performance monitor description and extends the mhpmevent registers to 64 bits (in RV32) as follows: ]
+This extension expands the hardware performance monitor description and extends
+the mhpmevent registers to 64 bits (in RV32) as follows:
 
 The hardware performance monitor includes 29 additional 64-bit event counters
 and 29 associated 64-bit event selector registers - the
@@ -130,16 +127,17 @@ eventually overflow.
 
 === Machine Interrupt Registers (mip and mie)
 
-{empty}[ This extension adds the description of the LCOFIP/LCOFIE bits in these registers (and modifies related text) as follows: ]
+This extension adds the description of the LCOFIP/LCOFIE bits in these
+registers (and modifies related text) as follows:
 
 LCOFIP is added to mip in Figure 3.14 as bit 13. LCOFIP is added to mie in
 Figure 3.15 as bit 13.
 
-If the Sscof extension is implemented, bits mip.LCOFIP and mie.LCOFIE are the
-interrupt-pending and interrupt-enable bits for local count overflow
+If the Sscofpmf extension is implemented, bits mip.LCOFIP and mie.LCOFIE are
+the interrupt-pending and interrupt-enable bits for local count overflow
 interrupts. LCOFIP is read-write in mip and reflects the occurrence of a local
 count overflow interrupt request resulting from any of the mhpmevent__n__.OF
-bits being set. If the Sscof extension is not implemented, these LCOFIP and
+bits being set. If the Sscofpmf extension is not implemented, these LCOFIP and
 LCOFIE bits are hardwired to zeros.
 
 Multiple simultaneous interrupts destined for different privilege modes are
@@ -147,20 +145,21 @@ handled in decreasing order of destined privilege mode. Multiple simultaneous
 interrupts destined for the same privilege mode are handled in the following
 decreasing priority order: MEI, MSI, MTI, SEI, SSI, STI, LCOFI.
 
-== Supervisor Extension Additions
+== Supervisor Level Additions
 
 === Supervisor Interrupt Registers (sip and sie)
 
-{empty}[ This extension adds the description of the LCOFIP/LCOFIE bits in these registers (and modifies related text) as follows: ]
+This extension adds the description of the LCOFIP/LCOFIE bits in these
+registers (and modifies related text) as follows:
 
 LCOFIP is added to sip in Figure 4.6 as bit 13. LCOFIP is added to sie in
 Figure 4.7 as bit 13.
 
-If the Sscof extension is implemented, bits sip.LCOFIP and sie.LCOFIE are the
-interrupt-pending and interrupt-enable bits for local count overflow
+If the Sscofpmf extension is implemented, bits sip.LCOFIP and sie.LCOFIE are
+the interrupt-pending and interrupt-enable bits for local count overflow
 interrupts. LCOFIP is read-write in sip and reflects the occurrence of a local
 count overflow interrupt request resulting from any of the mhpmevent__n__.OF
-bits being set. If the Sscof extension is not implemented, these LCOFIP and
+bits being set. If the Sscofpmf extension is not implemented, these LCOFIP and
 LCOFIE bits are hardwired to zeros.
 
 Each standard interrupt type (LCOFI, SEI, STI, or SSI) may not be implemented,
@@ -172,7 +171,7 @@ the following decreasing priority order: SEI, SSI, STI, LCOFI.
 
 === Supervisor Count Overflow (scountovf)
 
-{empty}[ This extension adds this new CSR. ]
+This extension adds this new CSR.
 
 The scountovf CSR is a 32-bit read-only register that contains shadow copies of
 the OF bits in the 29 mhpmevent CSRs (mhpmevent__3__ - mhpmevent__31__) - where
