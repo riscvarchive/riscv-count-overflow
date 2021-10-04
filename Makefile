@@ -1,5 +1,5 @@
 SPEC=Sscofpmf
-VERSION=0.5.1
+VERSION=0.5.2
 STAGE=frozen
 COMMITDATE=$(shell git show -s --format=%ci | cut -d ' ' -f 1)
 GITVERSION=$(shell git describe --tags --always --dirty)
